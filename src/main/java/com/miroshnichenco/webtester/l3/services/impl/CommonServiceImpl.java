@@ -4,6 +4,9 @@ import java.util.List;
 
 
 
+import java.util.UUID;
+
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 
 
@@ -71,6 +75,28 @@ public class CommonServiceImpl implements CommonService {
 		return a;
 	}
 	
+	@Override
+	@Transactional(readOnly=false, rollbackFor={InvalidUserInputException.class, RuntimeException.class})
+	public User login(com.restfb.types.User user) throws InvalidUserInputException {
+		User a = accountDao.findByEmail(user.getEmail());
+		if(a != null) {
+			return a;
+		}
+		else{
+			SignUpForm form = new SignUpForm ();
+			form.setEmail(user.getEmail());
+			
+			form.setName(user.getFirstName());
+
+			form.setLogin(user.getEmail());
+			
+			UUID pwd = UUID.randomUUID();//generate temp password
+			form.setPassword(pwd.toString());
+			//form.setPassword2(pwd.toString());??
+			
+			return signUp(form, false, true);
+		}
+	}
 	protected User signUp(SignUpForm form, boolean sendVerificationEmail, boolean sendPasswordToEmail) throws InvalidUserInputException {
 		User u = entityBuilder.buildAccount();
 		ReflectionUtils.copyByFields(u, form);

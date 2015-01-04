@@ -17,4 +17,6 @@ public interface CommonService {
 	List<Role> listAllRoles();
 	
 	String getSupportEmailAddress();
+
+	User login(com.restfb.types.User user) throws InvalidUserInputException;
 }
