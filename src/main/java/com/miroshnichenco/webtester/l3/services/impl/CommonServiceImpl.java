@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 
+
+
+
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +18,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+
 
 
 
@@ -29,6 +35,7 @@ import com.miroshnichenco.webtester.l2.dao.RoleDao;
 import com.miroshnichenco.webtester.l2.dao.impl.hibernate.AccountDaoImpl;
 import com.miroshnichenco.webtester.l3.components.EntityBuilder;
 import com.miroshnichenco.webtester.l3.services.CommonService;
+import com.miroshnichenco.webtester.l3.services.EmailService;
 import com.miroshnichenco.webtester.l3.services.exception.InvalidUserInputException;
 import com.miroshnichenco.webtester.l5.mvc.forms.SignUpForm;
 
@@ -51,6 +58,10 @@ public class CommonServiceImpl implements CommonService {
 	@Autowired
 	@Qualifier("entityBuilder")
 	private EntityBuilder entityBuilder;
+	
+	@Autowired
+	@Qualifier("emailService")
+	private EmailService emailService;
 	
 	@Override
 	@Transactional(readOnly=false, rollbackFor={InvalidUserInputException.class, RuntimeException.class})
@@ -107,10 +118,10 @@ public class CommonServiceImpl implements CommonService {
 		accountRoleDao.save(ar);
 		
 		if(sendVerificationEmail) {
-			//emailService.sendVerificationEmail();
+			emailService.sendVerificationEmail();
 		}
 		if(sendPasswordToEmail) {
-			//emailService.sendGeneratedPasswordToEmail();
+			emailService.sendGeneratedPasswordToEmail();
 		}
 		return u;
 	}
