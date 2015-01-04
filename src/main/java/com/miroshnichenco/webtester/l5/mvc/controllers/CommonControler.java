@@ -92,7 +92,7 @@ public class CommonControler extends AbstractController implements InitializingB
 		model.addAttribute("roles", roles);
     }
     
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@RequestMapping(value={"/login","/loginFailed"}, method=RequestMethod.GET)
 	public String showLogin(Model model){
 		model.addAttribute("loginForm", new LoginForm());
 		initRoles(model);
