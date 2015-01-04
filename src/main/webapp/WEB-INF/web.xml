@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Web tester</display-name>
+    
+  <welcome-file-list>
+  <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- add listener class  from spring framework on load context ContextLoaderListener
+  this class responsible for loading and initialisation all spring beans , 
+  that are configured in applicationContext.xml(may has another name ),
+  this file should be found in classpath so that we put it to src/main/resources
+  -->
+  <listener>
+  		<listener-class>
+  			org.springframework.web.context.ContextLoaderListener
+  		</listener-class>
+  </listener>
+  <listener>
+  		<listener-class>
+  			com.miroshnichenco.webtester.l0.listeners.InitContextListener
+  		</listener-class>
+  </listener>
+  
+  <!-- just configure context with parameter contextConfigLocation in order to  ContextLoaderListener
+  could use it -->
+<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+</context-param>
+  
+  
+  <!-- add spring Dispatcher  Servlet in order to catch all requests in our application
+  just register it as usual and also add contextConfigLocation for it.
+  contextConfigLocation - it is meaningless but needed , it is historical garbage it was needed for initialization of Dispatcher
+  it is not the same like in context-param . We can use its init file  or applicationContext.xml for Beans declaration.
+  Loading of context and applicationContext.xml as well preceded this.
+  Set correct <beans> empty tag with all schemas in dispatcher-servlet.xml to avoid XmlBeanDefinitionStoreException
+  -->
+  <servlet>
+  		<servlet-name>disptcherServlet</servlet-name>
+  		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  		<init-param>
+  				<param-name>contextConfigLocation</param-name>
+  				<param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+  		</init-param>
+  		<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>disptcherServlet</servlet-name>
+  		<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  
+ <filter>
+        <filter-name>charsetEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    
+      <filter-mapping>
+        <filter-name>charsetEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>hibernateSessionFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+     <filter-mapping>
+        <filter-name>hibernateSessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+     <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 
+</web-app>

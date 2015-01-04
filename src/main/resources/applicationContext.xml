@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Start and end with tag beans. This tag contains attributes with schema definitions rules. 
+All spring beans should be put inside this bean -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:context="http://www.springframework.org/schema/context"
+	   	xmlns:security="http://www.springframework.org/schema/security"
+	   
+        xsi:schemaLocation="http://www.springframework.org/schema/context 
+        					http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        					http://www.springframework.org/schema/beans 
+        					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       						http://www.springframework.org/schema/tx 
+        					http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        					http://www.springframework.org/schema/aop 
+        					http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        					http://www.springframework.org/schema/mvc 
+        					http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        					http://www.springframework.org/schema/security
+            				http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+<!-- ***********************    RESOURCE MAPPING   ******************************* -->
+<!-- needs for read property from properties file e.g. value="${db.username}"
+	we can use classpath:/config.properties or file: or url: -->
+ <bean id="config" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/config.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- without this  will be No mapping found for HTTP request with URI in DispatcherServlet -->
+    <mvc:annotation-driven />
+<!-- needs for access to static resources located in WEB-INF -->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/JSP/" />
+		<property name="suffix" value=".jsp" />
+</bean>
+	
+	
+<!-- message bundle to file  message that located in classpath (src/main/resources)-->
+<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:message" />
+        <property name="defaultEncoding" value="UTF-8" />
+</bean>
+
+<!-- using spring mvc we can map static resources-->
+<!-- add access to static resources in webapp/resources -->
+<mvc:resources location="/resources/**" mapping="/resources/**"/>
+<mvc:resources location="/favicon.ico" mapping="/favicon.ico"/><!-- this is some icon on tab in browser -->
+
+<!-- ************************   DATASOURCE  ******************************* -->
+<!-- we use properties from <bean id="config" see before -->
+<bean id="dataSource" class="org.postgresql.jdbc2.optional.PoolingDataSource">
+        <property name="dataSourceName" value="htppl-ds" />
+        <property name="serverName" value="${db.serverName}" />
+        <property name="databaseName" value="${db.databaseName}" />
+        <property name="user" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="initialConnections" value="10" />
+        <property name="maxConnections" value="200" />
+ </bean>
+
+
+<!-- ************************   SESSION FACTORY  ******************************* -->
+<!-- we use spring session factory -->
+<bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="configLocation" value="classpath:/hibernate.cfg.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+<!-- ************************   TRANSACTION MANAGER  ******************************* -->
+<!-- we use spring session transaction manager -->
+<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+</bean>
+
+<tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+<!-- *************************  SPRING ANNOTATION SCANN ******************************** -->
+
+
+<context:component-scan base-package="com.miroshnichenco.webtester.l2.dao.impl.hibernate"></context:component-scan>
+<context:component-scan base-package="com.miroshnichenco.webtester.l3.services"></context:component-scan>
+<context:component-scan base-package="com.miroshnichenco.webtester.l5.mvc.controllers"></context:component-scan>
+<context:component-scan base-package="com.miroshnichenco.webtester.l3.components"></context:component-scan>
+
+
+</beans>
