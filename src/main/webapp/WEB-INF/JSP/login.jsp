@@ -37,7 +37,7 @@
 	    </tr>
 	     <tr>
 	        <td colspan="2" style="text-align:center;padding-top:20px;">
-	            <a href="signUp">
+	            <a href="${context }/signUp">
 	            	SignUp
 	            </a>
 	        </td>
