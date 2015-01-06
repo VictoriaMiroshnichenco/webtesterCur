@@ -122,6 +122,7 @@ All spring beans should be put inside this bean -->
 		    	invalidate-session="true" 
 		    	delete-cookies="JSESSIONID" 
 		    	logout-url="/logout" />
+		    	
 		<security:remember-me key="testOnlineKey" token-repository-ref="tokenRepository" />
 		
 		<security:session-management session-fixation-protection="migrateSession" 
