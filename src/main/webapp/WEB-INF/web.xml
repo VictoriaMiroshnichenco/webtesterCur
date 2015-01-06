@@ -24,6 +24,10 @@
   		</listener-class>
   </listener>
   
+  <listener>
+  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+</listener>
+  
   <!-- just configure context with parameter contextConfigLocation in order to  ContextLoaderListener
   could use it -->
 <context-param>

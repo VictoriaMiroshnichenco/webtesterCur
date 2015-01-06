@@ -6,15 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
-
-
-
-
-import nedis.study.jee.entities.Account;
-import nedis.study.jee.security.CurrentAccount;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,12 +13,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.miroshnichenco.webtester.l0.application.ApplicationConstants;
 import com.miroshnichenco.webtester.l1.entities.User;
 import com.miroshnichenco.webtester.l1.entities.UserRole;
 import com.miroshnichenco.webtester.l2.dao.AccountDao;
 
+@Service("accountAuthentificationService")
 public class AuthentificationService implements UserDetailsService {
 	private static final Map<Integer, String> ROLES = new HashMap<Integer, String>();
 	static {

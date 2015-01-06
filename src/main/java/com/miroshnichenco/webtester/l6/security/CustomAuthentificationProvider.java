@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,11 +12,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.miroshnichenco.webtester.l0.application.ApplicationConstants;
 
+@Component("customAuthenticationProvider")
 public class CustomAuthentificationProvider extends DaoAuthenticationProvider{
 	@Override
 	@Autowired

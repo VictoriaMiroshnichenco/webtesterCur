@@ -10,10 +10,6 @@ import javax.servlet.http.HttpSession;
 
 
 
-
-
-
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,6 +31,8 @@ import com.miroshnichenco.webtester.l1.entities.Role;
 import com.miroshnichenco.webtester.l3.services.exception.InvalidUserInputException;
 import com.miroshnichenco.webtester.l5.mvc.forms.LoginForm;
 import com.miroshnichenco.webtester.l5.mvc.forms.SignUpForm;
+import com.miroshnichenco.webtester.l6.security.CurrentAccount;
+import com.miroshnichenco.webtester.l6.security.SecurityUtils;
 
 
 @Controller
@@ -116,5 +114,10 @@ public class CommonControler extends AbstractController implements InitializingB
 	
 		
 		return "signUpSuccess";
+	}
+	@RequestMapping(value={"/myInfo"}, method=RequestMethod.GET)
+	public String myInfo(Model model){
+		CurrentAccount currentAccount = SecurityUtils.getCurrentAccount();
+		return "redirect:"+redirects.get(currentAccount.getRole());
 	}
 }
