@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.miroshnichenco.webtester.l0.application.ApplicationConstants;
 import com.miroshnichenco.webtester.l1.entities.User;
@@ -103,16 +105,20 @@ public class CommonControler extends AbstractController implements InitializingB
 		return "signUp";
 	}
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
-	public String signUp(@Validated @ModelAttribute("signUpForm") SignUpForm signUpForm, BindingResult result){
-		User a;
+	public String signUp(@Validated @ModelAttribute("signUpForm") SignUpForm signUpForm, BindingResult result, @RequestParam(required=false, value="save") String save, @RequestParam(required=false, value="cancel") String cancel){
+		
+		//TODO how to process cansel
+		if (cancel != null ){
+			return "login";
+		}
+		
 		try {
-			a = commonService.signUp(signUpForm);
+			 commonService.signUp(signUpForm);
 		} catch (InvalidUserInputException e) {
 			result.addError(new ObjectError("", e.getMessage()));
 			return "/signUp";
 		}
-	
-		
+
 		return "signUpSuccess";
 	}
 	@RequestMapping(value={"/myInfo"}, method=RequestMethod.GET)

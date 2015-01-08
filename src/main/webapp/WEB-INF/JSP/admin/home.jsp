@@ -4,8 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<jsp:include page="../templates/header.jsp" />
+
 <div class="container">
 	Hello, admin!
+	<a href="${context }/admin/users">
+	Manage users
+	</a>
 </div>
-<jsp:include page="../templates/footer.jsp" />

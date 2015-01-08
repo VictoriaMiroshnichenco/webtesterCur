@@ -5,9 +5,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<jsp:include page="templates/header.jsp" />
+<%-- <jsp:include page="templates/header.jsp" /> --%>
 <div class="container">
-	<h2>Create User</h2>
+
+	<h2> User</h2>
 	<form:form method="POST" action="signUp" commandName="signUpForm" >
 	   <table>
 	    <tr>
@@ -22,8 +23,10 @@
 	        <td><form:input path="login" /></td>
 	    </tr>
 	    <tr>
+	   <%--  <c:if test="${sessionScope.CURRENT_ACCOUNT != null}"> --%>
 	        <td><form:label path="password">Password</form:label></td>
-	        <td><form:password path="password"/> </td>
+	        <td><form:hidden  path="password"/> </td>
+	     <%--    </c:if> --%>
 	    </tr>
 	    <tr>
 	        <td><form:label path="email">Email</form:label></td>
@@ -31,10 +34,13 @@
 	    </tr>
 	    <tr>
 	        <td colspan="2" style="text-align:center;">
-	            <input type="submit" value="Login"/>
+	            <input type="submit" name = "save" value="Save"/>
+	        </td>
+	        <td colspan="2" style="text-align:center;">
+	            <input type="submit" name = "cancel" value="Cancel"/>
 	        </td>
 	    </tr>
 	</table>  
 	</form:form>
 </div>
-<jsp:include page="templates/footer.jsp" />
+<%-- <jsp:include page="templates/footer.jsp" /> --%>
