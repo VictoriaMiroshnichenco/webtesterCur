@@ -23,7 +23,7 @@
 	        			active
 	        			</th>
 	        			<th>
-	        			user
+	        			owner
 	        			</th>
 	        			<th>
 	        			Detail
@@ -47,15 +47,18 @@
 	        			<td>
 	        			${test.active}
 	        			</td>
+	        			<td>
+	        			${test.user.name}
+	        			</td>
+	        			
 	        			
 	        			<td>
-	        			<a href="${context }/tutor/viewTest?testId=${test.id}" >
+	        			<a href="${context }/advanced_tutor/viewTest?testId=${test.id}" >
 	        			Detail
 	        			</a>
 	        			</td>
 	        			
 	        		</c:forEach>
 	 </table>
-	<p><a href="${context }/tutor/create">Add new test</a></p>
-	<p><a href="${context }/tutor/testList?userId = 1">List</a></p>
+	<p><a href="${context }/advanced_tutor/create">Add new test</a></p>
 </div>

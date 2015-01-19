@@ -57,5 +57,4 @@
 	        		</c:forEach>
 	 </table>
 	<p><a href="${context }/tutor/create">Add new test</a></p>
-	<p><a href="${context }/tutor/testList?userId = 1">List</a></p>
 </div>

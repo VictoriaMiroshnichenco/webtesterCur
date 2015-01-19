@@ -7,5 +7,6 @@
 <jsp:include page="../templates/header.jsp" />
 <div class="container">
 	Hello, advanced tutor!
+	<p><a href="${context }/advanced_tutor/testList?userId = 1">List</a></p>
 </div>
 <jsp:include page="../templates/footer.jsp" />

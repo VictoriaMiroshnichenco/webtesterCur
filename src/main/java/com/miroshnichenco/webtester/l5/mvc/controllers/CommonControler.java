@@ -49,8 +49,8 @@ public class CommonControler extends AbstractController implements InitializingB
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		redirects.put(ApplicationConstants.ADMIN_ROLE, "/admin/home");
-		redirects.put(ApplicationConstants.ADVANCED_TUTOR_ROLE, "/advanced_tutor/home");
 		redirects.put(ApplicationConstants.TUTOR_ROLE, "/tutor/home");
+		redirects.put(ApplicationConstants.ADVANCED_TUTOR_ROLE, "/advanced_tutor/home");
 		redirects.put(ApplicationConstants.STUDENT_ROLE, "/student/home");
 	}
 	
