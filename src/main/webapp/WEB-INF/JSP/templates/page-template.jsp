@@ -22,7 +22,9 @@
 
 <body class="style1">
 	<header>
-	
+
+	<p>You log in as </p>
+	 <c:out value="${sessionScope.CURRENT_ACCOUNT}"></c:out>
 	</header>
 	<section class="main">
 		<decorator:body />

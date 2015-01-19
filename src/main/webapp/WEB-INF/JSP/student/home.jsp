@@ -6,6 +6,20 @@
 
 <jsp:include page="../templates/header.jsp" />
 <div class="container">
-	Hello, student!
+	${welcome.hello}, student!
+	<p>
+	<a href="${context }/student/edit">
+	Edit profile
+	</a>
+	<p>
+	<a href="${context }/student/testList">
+	Choose test
+	</a>
+	</p>
+	<p>
+	<a href="${context }/student/resultList?userId=${sessionScope.CURRENT_ACCOUNT.idAccount}">
+	Results
+	</a>
+	</p>
 </div>
 <jsp:include page="../templates/footer.jsp" />

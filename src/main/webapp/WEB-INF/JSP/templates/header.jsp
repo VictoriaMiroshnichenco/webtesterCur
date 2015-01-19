@@ -24,7 +24,8 @@
 	<header>
 	
 	</header>
-	
+
+	 <p> 	${test.name }</p>
 	<section class="main">
 	
 	

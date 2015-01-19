@@ -40,26 +40,23 @@
 			</tr>
 			<tr>
 			
-			<td><form:label path="existsRoles">Has Roles</form:label></td>
+			<td><form:label path="roles">Has Roles</form:label></td>
 			<td>
-			<form:textarea readonly="true" path="existsRoles" rows="5" cols="30"></form:textarea>
+			<form:textarea path="roles" rows="5" cols="30"></form:textarea>
 
 			</td>
 			</tr>
 			<tr>
 			
-			<td><form:label path="userRoles">Roles</form:label></td>
+			<td><form:label path="roles">Roles</form:label></td>
 			<td>
-			 
+			<form:select multiple="true" path="roles">
 
-<%-- <form:checkboxes items="${roles }" path="userRoles"/> --%>
-	</td>
-	<td>
-<%--	<c:forEach var="role" items="${roles }">
-	        			<form:checkbox  value="${role.idRole }" ></form:checkbox>
-	        		</c:forEach>
-	        		--%>
-		
+						<c:forEach var="role" items="${roles }">
+							<option value="${role.idRole }">${role.name }</option>
+						</c:forEach>
+
+					</form:select>
 				</td>
 			</tr>
 			<tr>

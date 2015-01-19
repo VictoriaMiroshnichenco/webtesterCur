@@ -5,18 +5,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 
+<div class="container">
+	<p>Student</p>
+	<p>Result list</p>
 
+	<table style="width: 300px; margin: 0 auto;" border="1">
 
-
-
-
-<script src="${context}/resources/js/jquery-1.10.2.js?v=${CSS_JS_VERSION}"></script>
-<script>
-	$(document).ready(function(){
-
-	});
-</script>
-</section>
-</body>
-
-</html>
+	</table>
+	<a href="${context }/student/home"> Home </a>
+</div>

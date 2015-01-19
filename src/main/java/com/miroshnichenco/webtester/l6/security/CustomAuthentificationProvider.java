@@ -48,5 +48,6 @@ public class CustomAuthentificationProvider extends DaoAuthenticationProvider{
 			};
 		}
 		a.setRole(role);
+		request.getSession().setAttribute("CURRENT_ACCOUNT", a);
 	}
 }

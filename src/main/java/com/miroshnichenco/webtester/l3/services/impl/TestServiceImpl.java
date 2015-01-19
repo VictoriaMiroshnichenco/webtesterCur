@@ -9,38 +9,49 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.miroshnichenco.webtester.l1.entities.Question;
 import com.miroshnichenco.webtester.l1.entities.Test;
 import com.miroshnichenco.webtester.l1.entities.User;
 import com.miroshnichenco.webtester.l2.dao.AccountDao;
 import com.miroshnichenco.webtester.l2.dao.TestDao;
 import com.miroshnichenco.webtester.l3.services.StudentService;
+import com.miroshnichenco.webtester.l3.services.TestService;
 import com.miroshnichenco.webtester.l3.services.exception.InvalidUserInputException;
 import com.miroshnichenco.webtester.l5.mvc.forms.SignUpForm;
 
 
 
 @Service
-public class StudentServiceImpl implements StudentService {
-	
-	
-	
+public class TestServiceImpl implements TestService {
 	@Autowired
-	@Qualifier("hibernateAccountDao")
-	private AccountDao accountDao;
-	
+	@Qualifier("testDao")
+	private TestDao testDao;
+
 	@Override
-	@Transactional(readOnly=false, rollbackFor={InvalidUserInputException.class, RuntimeException.class})
-	public User edit(SignUpForm form) throws InvalidUserInputException {
-	/*	User user= new USer;//= findById(form.getIdUser());
-		user.setName(form.getName());
-		user.setEmail(form.getEmail());
-		user.setUpdated(new Timestamp(System.currentTimeMillis()));
-		
-		//accountDao.update(user);
-		return user;
-		*/ return null;
+	@Transactional(readOnly=true, rollbackFor={InvalidUserInputException.class, RuntimeException.class})
+	public List<Test> listTests() {
+		List<Test> retval = new ArrayList<Test>();
+
+		retval = testDao.finfAll();
+		return retval;
 	}
 
-	
+	@Override
+	public Test getTestById(Long id) {
+		return testDao.findByID(id);
+	}
+
+	@Override
+	public Question getQuestion(Long testId, int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean processAnswer(String ids) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 }

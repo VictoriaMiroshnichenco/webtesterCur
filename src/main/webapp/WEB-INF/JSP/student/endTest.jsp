@@ -4,19 +4,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-
-
-
-
-
-
-<script src="${context}/resources/js/jquery-1.10.2.js?v=${CSS_JS_VERSION}"></script>
-<script>
-	$(document).ready(function(){
-
-	});
-</script>
-</section>
-</body>
-
-</html>
+<jsp:include page="../templates/header.jsp" />
+<div class="container">
+	End test
+	<a href="${context }/student/home">
+	Home
+	</a>
+</div>
+<jsp:include page="../templates/footer.jsp" />

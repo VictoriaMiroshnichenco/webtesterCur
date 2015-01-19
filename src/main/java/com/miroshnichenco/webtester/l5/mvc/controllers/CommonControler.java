@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 
 
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.miroshnichenco.webtester.l0.application.ApplicationConstants;
 import com.miroshnichenco.webtester.l1.entities.User;
@@ -47,7 +51,7 @@ public class CommonControler extends AbstractController implements InitializingB
 		redirects.put(ApplicationConstants.ADMIN_ROLE, "/admin/home");
 		redirects.put(ApplicationConstants.ADVANCED_TUTOR_ROLE, "/advanced_tutor/home");
 		redirects.put(ApplicationConstants.TUTOR_ROLE, "/tutor/home");
-		redirects.put(ApplicationConstants.STUDENT_ROLE, "/home");
+		redirects.put(ApplicationConstants.STUDENT_ROLE, "/student/home");
 	}
 	
 	//@Autowired
@@ -79,6 +83,7 @@ public class CommonControler extends AbstractController implements InitializingB
 			User a = commonService.login(loginForm.getLogin(),
 					loginForm.getPassword(), loginForm.getIdRole());
 			session.setAttribute("CURRENT_ACCOUNT", a);
+
 			return "redirect:" + redirects.get(loginForm.getIdRole());
 		} catch (InvalidUserInputException e) {
 			result.addError(new ObjectError("", e.getMessage()));
@@ -98,10 +103,13 @@ public class CommonControler extends AbstractController implements InitializingB
 		initRoles(model);
 		return "login";
 	}
-	@RequestMapping(value="/signUp", method=RequestMethod.GET)
+	@RequestMapping(value={"/signUp","/edit"}, method=RequestMethod.GET)
 	public String showSignUp(Model model){
 		model.addAttribute("signUpForm", new SignUpForm());
-
+		initRoles(model);
+		//TODO
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		request.setAttribute("MODE", "edit");
 		return "signUp";
 	}
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)

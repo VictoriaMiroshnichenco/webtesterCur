@@ -1,9 +1,16 @@
 package com.miroshnichenco.webtester.l3.services;
 
-/**
- * @author nedis
- * @version 1.0
- */
+import java.util.List;
+
+import com.miroshnichenco.webtester.l1.entities.Test;
+import com.miroshnichenco.webtester.l1.entities.User;
+import com.miroshnichenco.webtester.l3.services.exception.InvalidUserInputException;
+import com.miroshnichenco.webtester.l5.mvc.forms.SignUpForm;
+
+
 public interface StudentService {
+
+	User edit(SignUpForm form) throws InvalidUserInputException;
+
 
 }

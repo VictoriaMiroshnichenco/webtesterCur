@@ -7,4 +7,5 @@ import com.miroshnichenco.webtester.l1.entities.User;
 
 public interface AccountDao extends IEntityDao<User>{
 	User findByEmail(String email);
+	User findByLogin(String login);
 }

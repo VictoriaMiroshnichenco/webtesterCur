@@ -65,11 +65,11 @@ public class CommonServiceImpl implements CommonService {
 	
 	@Override
 	@Transactional(readOnly=false, rollbackFor={InvalidUserInputException.class, RuntimeException.class})
-	public User login(String email, String password, int role)
+	public User login(String login, String password, int role)
 			throws InvalidUserInputException {
 		User a = null;
 
-		a = accountDao.findByEmail(email);
+		a = accountDao.findByLogin(login);
 		if(a == null) {
 			throw new InvalidUserInputException("Bad credentials");
 		}

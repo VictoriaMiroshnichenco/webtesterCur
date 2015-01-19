@@ -42,11 +42,11 @@ public class AuthentificationService implements UserDetailsService {
 	private AccountDao accountDao;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email)
+	public UserDetails loadUserByUsername(String login)
 			throws UsernameNotFoundException {
-		User a = accountDao.findByEmail(email);
+		User a = accountDao.findByLogin(login);
 		if(a == null) {
-			throw new UsernameNotFoundException("Account not found by email="+email);
+			throw new UsernameNotFoundException("Account not found by email="+login);
 		}
 		return new CurrentAccount(a);
 	}
