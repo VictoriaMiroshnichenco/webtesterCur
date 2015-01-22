@@ -20,63 +20,79 @@
 	<c:set var="action" scope="page" value="editTest" />
 </c:if>
 
-<div align="left" class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Webtester</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/student/tests">Tests</a></li>
+        <li><a href="#">Statistics</a></li>
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile
+          <span class="caret"></span>
+        </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Sign out</a></li>
+          </ul>
+        </li>
 
+      </ul>
 
-	<form:form method="POST" action="${action }" commandName="testForm">
+      <form class="navbar-form navbar-right">
+        <input type="text" class="form-control"
+               placeholder="Search... (inactive)">
+      </form>
+    </div>
+  </div>
+</nav>
 
-		<table>
-			<tr>
-				<td colspan="2" class="errors"><form:errors path="*" /></td>
-			</tr>
-			<form:hidden path="idTest" />
-			<tr>
-				<td><form:label path="name">Name</form:label></td>
-				<td><form:input disabled="${disabled }" path="name" /></td>
-			</tr>
-			<tr>
-				<td><form:label path="description">description</form:label></td>
-				<td><form:textarea path="description" disabled="${disabled }"
-						rows="5" cols="30"></form:textarea></td>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/student/tests">Tests</a></li>
+        <li><a href="#">Statistics</a></li>
+        <li><a href="#">Profile</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="/tutor/createTest">Create Test</a></li>
+        <li><a href="">Test Management</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="/admin/users">User Management</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header">Create new Test</h1>
 
-			</tr>
-			<tr>
-				<td><form:label path="time">time</form:label></td>
-				<td><form:input disabled="${disabled }" path="time" /></td>
-			</tr>
-			<tr>
-				<td><form:label path="created">created</form:label></td>
-				<td><form:input disabled="true" path="created" /></td>
-			</tr>
-			<tr>
-				<td><form:label path="updated">updated</form:label></td>
-				<td><form:input disabled="true" path="updated" /></td>
-			</tr>
-			<tr>
-				<td><form:label path="active">active</form:label></td>
-				<td><form:checkbox disabled="${disabled }" path="active" /></td>
-			</tr>
-			<tr>
-				<c:choose>
-					<c:when test="${requestScope.MODE=='view'}">
-						<td colspan="2" style="text-align: center;"><a
-							href="${context }/advanced_tutor/edit">Edit</a></td>
-					</c:when>
-
-					<c:otherwise>
-						<td colspan="2" style="text-align: center;"><input
-							type="submit" name="save" value="Save" /></td>
-					</c:otherwise>
-				</c:choose>
-
-				<td colspan="2" style="text-align: center;"><a
-					href="${context }/advanced_tutor/addTest?testId=${test.id}">Add
-						question</a></td>
-				<td colspan="2" style="text-align: center;"><a
-					href="${context }/advanced_tutor/testList">Cancel
-					</a></td>
-			</tr>
-		</table>
-	</form:form>
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label for="inputName" class="col-sm-2 control-label">Test title<sup>*</sup></label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputName" placeholder="Test title">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputDesc" class="col-sm-2 control-label">Description<sup>*</sup></label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputDesc" placeholder="Enter Description">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputTime" class="col-sm-2 control-label">Question time</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputTime" placeholder="Enter Time per Question (sec). Default: 30 sec" maxlength="4">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Create Test</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-<%-- <jsp:include page="templates/footer.jsp" /> --%>

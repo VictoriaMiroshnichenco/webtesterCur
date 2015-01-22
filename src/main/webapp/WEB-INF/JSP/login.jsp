@@ -6,7 +6,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <div class="container">
-	<h2>Please login</h2>
+	<h2 align="center">Please login</h2>
 	<form method="POST" action="${context }/loginHandler" >
 	   <table style="width:300px;margin:0 auto;">
 	    <tr>

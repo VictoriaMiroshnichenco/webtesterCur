@@ -3,35 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Created</th>
+					<th>Updated</th>
+					<th>Active</th>
+					<th>Owner</th>
+					<th>Detail</th>
+				</tr>
 
-<jsp:include page="../templates/header.jsp" />
-<div class="container">
-	Hello, tutor!
-	<p>TestList</p>
-	<table style="width:300px;margin:0 auto;" border="1">
-	 <tr>
-	 <th>
-	        			name
-	        			</th>
-	        			<th>
-	        			created 
-	        			</th>
-	        			<td>
-	        			updated
-	        			</th>
-	        			<th>
-	        			active
-	        			</th>
-	        			<th>
-	        			owner
-	        			</th>
-	        			<th>
-	        			Detail
-	        			</th>
-	        			
-	        			
-	 </tr>
-	 <c:forEach var="test" items="${tests }">
+			</thead>
+			<tbody>
+ <c:forEach var="test" items="${tests }">
 	        			<tr>
 	        			
 	        			<td>
@@ -53,12 +39,13 @@
 	        			
 	        			
 	        			<td>
-	        			<a href="${context }/advanced_tutor/viewTest?testId=${test.id}" >
+	        			<a href="${context }/tutor/viewTest?testId=${test.id}" >
 	        			Detail
 	        			</a>
 	        			</td>
 	        			
 	        		</c:forEach>
-	 </table>
-	<p><a href="${context }/advanced_tutor/createTest">Add new test</a></p>
-</div>
+			</tbody>
+		</table>
+
+	</div>

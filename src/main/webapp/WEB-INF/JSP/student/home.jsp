@@ -4,9 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<jsp:include page="../templates/header.jsp" />
-<div class="container">
-	${welcome.hello}, student!
+
+<div class="col-md-12 top-material">
+	Hello, student!
 	<p>
 	<a href="${context }/student/edit">
 	Edit profile

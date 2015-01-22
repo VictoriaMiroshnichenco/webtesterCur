@@ -14,7 +14,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.miroshnichenco.webtester.l0.utils.ReflectionUtils;
+import com.miroshnichenco.webtester.l1.entities.Question;
 import com.miroshnichenco.webtester.l1.entities.Test;
+import com.miroshnichenco.webtester.l5.mvc.forms.QuestionForm;
 import com.miroshnichenco.webtester.l5.mvc.forms.TestForm;
 
 @Controller
@@ -31,14 +33,14 @@ public class AdvancedTutorController extends AbstractTutorController {
 
 		getTestList(model);
 
-		return "advanced_tutor/testList";
+		return "tutor/testList";
 	}
 
 	@RequestMapping(value = "/viewTest", method = RequestMethod.GET)
-	public String viewTest(@RequestParam("testId") String userId, Model model) {
+	public String viewTest(@RequestParam("testId") String testId, Model model) {
 		
-		if (!StringUtils.isBlank(userId)) {
-			Long id = Long.parseLong(userId);
+		if (!StringUtils.isBlank(testId)) {
+			Long id = Long.parseLong(testId);
 
 			if (null != id) {
 				 getTest(id, model);
@@ -48,17 +50,50 @@ public class AdvancedTutorController extends AbstractTutorController {
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		request.setAttribute("MODE", "view");
-		return "advanced_tutor/testForm";
+		request.setAttribute("testId", "testId");
+		return "tutor/viewTest";
+	}
+	@RequestMapping(value = "/createTest", method = RequestMethod.GET)
+	public String createTest() {
+		
+		return  "redirect:advanced_tutor/createTest";
+	}
+	
+	@RequestMapping(value = "/editTest", method = RequestMethod.GET)
+	public String viewEditForm( Model model) {
+		model.addAttribute("testForm", new TestForm());
+		setModeForPage("edit");
+		return "tutor/editTest";
+	}
+	
+	@RequestMapping(value = "/viewQuestion", method = RequestMethod.GET)
+	public String viewQuestion(@RequestParam("questionId") String questionId, Model model) {
+		
+		if (!StringUtils.isBlank(questionId)) {
+			Long id = Long.parseLong(questionId);
+
+			if (null != id) {
+				 getQuestion(id, model);
+				
+			}
+		}
+		
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		request.setAttribute("MODE", "view");
+		request.setAttribute("questionId", questionId);
+		return "tutor/viewQuestion";
+	}
+	private void getQuestion(Long id, Model model) {
+		QuestionForm questionForm = new QuestionForm();
+		Question question = testService.getQuestion(id);
+		ReflectionUtils.copyByFields(questionForm, question);
+		questionForm.setTestId(question.getTest().getIdTest());
+		questionForm.setAnswers(question.getAnswers());
+		model.addAttribute("questionForm", questionForm);
+		setModeForPage("view");
+		
 	}
 
-	protected void getTest(Long idTest, Model model) {
-		TestForm form = new TestForm();
-		Test test = testService.getTestById(idTest);
-		ReflectionUtils.copyByFields(form, test );
-
-		model.addAttribute("test", test);
-		model.addAttribute("testForm",form );
-	}
 	protected void getTestList( Model model) {
 
 		List<Test> tests = testService.listTests();

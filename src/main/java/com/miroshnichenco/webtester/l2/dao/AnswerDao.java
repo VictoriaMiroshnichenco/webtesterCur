@@ -1,5 +1,8 @@
 package com.miroshnichenco.webtester.l2.dao;
 
-public interface AnswerDao {
+import com.miroshnichenco.webtester.l1.entities.Answer;
+
+
+public interface AnswerDao extends IEntityDao<Answer>{
 
 }

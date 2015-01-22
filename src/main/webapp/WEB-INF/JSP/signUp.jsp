@@ -49,7 +49,11 @@
 			<tr>
 			
 			<td><form:label path="userRoles">Roles</form:label></td>
-			<td>
+			<td><form:select path="userRoles" multiple="true" size="4">
+                                <c:forEach items="${userRoles}" var="role">
+                                    <form:option value="${role.id}">${role.name}</form:option>
+                                </c:forEach>
+                            </form:select>
 			 
 
 <%-- <form:checkboxes items="${roles }" path="userRoles"/> --%>

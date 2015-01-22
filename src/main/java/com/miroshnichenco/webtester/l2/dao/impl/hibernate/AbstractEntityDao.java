@@ -28,8 +28,8 @@ public abstract class AbstractEntityDao<T> implements IEntityDao<T> {
 		//return sessionFactory.openSession();
 	}
 	@Override
-	public void save(T entity) {
-		getSession().save(entity);
+	public Serializable save(T entity) {
+		return getSession().save(entity);
 
 	}
 

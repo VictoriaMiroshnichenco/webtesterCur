@@ -15,7 +15,7 @@ import com.miroshnichenco.webtester.l2.dao.TestDao;
 public class TestDaoImpl extends AbstractEntityDao<Test> implements TestDao{
 
 	@Override
-	protected Class getEntityClass() {
+	protected Class<Test> getEntityClass() {
 		return Test.class;
 	}
 
@@ -30,11 +30,5 @@ public class TestDaoImpl extends AbstractEntityDao<Test> implements TestDao{
 		return (List<Question>) getSession().createCriteria(Question.class)
 				.add(Restrictions.eq("test", test)).list();
 	}
-	
-/*	@Override
-	public List<Question> getQuestionForTest(Test test) {
-		return (List<Question>) getSession().createCriteria(Question.class)
-				.add(Restrictions.eq("test", test)).list();
-	}
-*/
+
 }

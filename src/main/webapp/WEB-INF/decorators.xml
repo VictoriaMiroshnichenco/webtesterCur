@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/JSP/templates">
-    <decorator name="page" page="page-template.jsp">
-        <pattern>/*</pattern>
-    </decorator>
+	<decorator name="page" page="page-template.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	<decorator name="index" page="index.jsp">
+		<pattern>/</pattern>
+	</decorator>
+	<excludes>  
+    <pattern>/login </pattern>
+  </excludes>
+
+	<decorator name="signup" page="signup.jsp">
+		<pattern>/signup</pattern>
+	</decorator>
+	<decorator name="nothingfancy" page="nothingfancy.jsp">
+		<pattern>/j_spring_security_logout</pattern>
+		<pattern>/login</pattern>
+	</decorator>
+
+	<decorator name="users" page="admin/users.jsp">
+		<pattern>/admin/users</pattern>
+	</decorator>
 </decorators>
